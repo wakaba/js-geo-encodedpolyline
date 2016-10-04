@@ -6,15 +6,15 @@ function EncodedPolyline () { }
     var negative = v < 0;
     if (negative) {
       v = (~(-v)) + 1;
-      v = v << 1;
+      v = v * 2; // <<1
       v = ~(v);
     } else {
-      v = v << 1;
+      v = v * 2; // <<1
     }
     var r = [];
     while (v) {
       var x = v & 0b11111;
-      v = v >> 5;
+      v = v >>> 5;
       if (v) x = x | 0x20;
       r.push (String.fromCharCode (x + 63));
     }
@@ -56,14 +56,14 @@ function EncodedPolyline () { }
       input = input.replace (/^([\x5F-\x7E]*[\x3F-\x5E])/, function (x) {
         var v = 0;
         x.split (/(?:)/).reverse ().forEach (function (y) {
-          v = v << 5;
+          v = v * (2 ** 5);
           v = v | ((y.charCodeAt (0) - 63) & 0b11111);
         });
         if (v & 1) {
-          v = v >> 1;
+          v = v >>> 1;
           v = -~(~(v)-1);
         } else {
-          v = v >> 1;
+          v = v >>> 1;
         }
         var j = i % n;
         v = current[j] = current[j] + v;
