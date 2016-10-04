@@ -1,0 +1,85 @@
+encodedpolyline.js
+~~~~~~~~~~~~~~~~~~
+
+Encoding and decoding of encoded polylines.  This script implements
+the Encoded Polyline Algorithm as used by Google Maps and other map
+applications.
+
+* Usage
+
+  <script src=encodedpolyline.js></script>
+  <script>
+    console.log (EncodedPolyline.encode ([[lat, lon], ...], 1e5));
+    console.log (EncodedPolyline.decode (input, 2, 1e5));
+  </script>
+
+* Methods
+
+Following methods are available:
+
+  encoded = EncodedPolyline.encode (decoded, f)
+
+    Encodes the list of items and returns the result string.
+
+    The first argument must be an Array of Arrays, where the inner
+    Arrays must contain same numbers of items.  Each item of the inner
+    Arrays must be numbers.
+
+    To encode a list of pairs of latitude and longitude, as used by
+    Google Maps, specify the list of latitude and longitude (both in
+    decimal), as an Array of Arrays, and the factor value |1e5|, as
+    the arguments.
+
+  decoded = EncodedPolyline.decode (encoded, n, f)
+
+    Decodes the encoded polyline string and returns the result list.
+
+    The second argument represents the number of the items in each
+    pair.
+
+    To decode a polyline encoded list of pairs of latitude and
+    longitude, as used by Google Maps, specify the encoded string, the
+    number of items in each pair |2| (i.e. latitude and longitude),
+    and the factor value |1e5|.
+
+    The method returns an Array of Arrays, where inner Arrays
+    represent the pairs in the list.  When the input is broken, the
+    returned list might be incomplete.
+
+Please note that the factor value I<$f> affects the precision of
+encoded numbers, i.e. whether the original value can be obtained by
+encoding a number and then decoding its result.  When /n/ * /f/ is an
+integer, the exact number /n/ can be obtained.
+
+* Specification
+
+Encoded Polyline Algorithm Format
+<https://developers.google.com/maps/documentation/utilities/polylinealgorithm>.
+
+* See also
+
+SuikaWiki: Encoded Polyline
+<https://wiki.suikawiki.org/n/Encoded%20Polyline>.
+
+* Author
+
+Wakaba <wakaba@suikawiki.org>.
+
+* License
+
+Copyright 2016 Wakaba <wakaba@suikawiki.org>.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; see the file COPYING.  If not, write to
+the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+Boston, MA 02111-1307, USA.
