@@ -1,8 +1,7 @@
 function EncodedPolyline () { }
 
 (function () {
-  var _encode = function (s, t) {
-    var v = Math.floor ((s * t) + 0.5);
+  var _encode = function (v) {
     var negative = v < 0;
     if (negative) {
       v = (~(-v)) + 1;
@@ -35,8 +34,9 @@ function EncodedPolyline () { }
     for (var i = 0; i < points.length; i++) {
       var pt = points[i];
       for (var j = 0; j < n; j++) {
-        r += _encode (pt[j] - current[j], f);
-        current[j] = pt[j];
+        var v = Math.floor (((pt[j] - current[j]) * f) + 0.5);
+        r += _encode (v);
+        current[j] += v / f;
       }
     }
 
@@ -85,7 +85,7 @@ function EncodedPolyline () { }
 
 /* License
 
-Copyright 2016 Wakaba <wakaba@suikawiki.org>.
+Copyright 2016-2018 Wakaba <wakaba@suikawiki.org>.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
